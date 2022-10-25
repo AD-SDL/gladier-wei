@@ -7,11 +7,7 @@ from pprint import pprint
 ##Base Gladier imports
 from gladier import GladierBaseClient, generate_flow_definition
 
-##Import tools that will be used on the flow definition
-from tools.simple_funcx_tool import SimpleTool
 from tools.gather_metadata import GatherMetadata
-
-from gladier_tools.globus.transfer import Transfer
 from gladier_tools.publish import Publish
 
 ##Generate flow based on the collection of `gladier_tools` 
@@ -25,8 +21,6 @@ from gladier_tools.publish import Publish
 )
 class Example_Client(GladierBaseClient):
     gladier_tools = [
-        Transfer,
-        SimpleTool,
         GatherMetadata,
         Publish
     ]
@@ -61,14 +55,8 @@ def run_flow(event):
             'pilot':{}
         }
     }
-    print('Created payload.')
-    pprint(flow_input)
-    print('')
 
-    ##Label for the current run (This is the label that will be presented on the globus webApp)
-    client_run_label = 'Gladier SingleTool Example'
-
-    ##Flow execution
+    client_run_label = 'WEI Publish RUN'
     flow_run = exampleClient.run_flow(flow_input=flow_input, label=client_run_label)
 
     print('Run started with ID: ' + flow_run['action_id'])
